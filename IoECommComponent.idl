@@ -1,0 +1,35 @@
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	object,
+	uuid(D8914E11-0D10-436F-BACA-62922D7B8F10),
+	helpstring("IIoECommComponent Interface"),
+	pointer_default(unique)
+] 
+interface IIoECommComponent : IUnknown {
+	[helpstring("method OpenCommPort")] HRESULT  OpenCommPort([in]BSTR lpszComm );
+	[helpstring("method SetCommPort")] HRESULT  SetCommPort([in]LONG hCom, [in]LONG dwBaudRate, [in]BYTE chParity, [in]BYTE bByteSize, [in]BYTE bStopBits);
+	[helpstring("method WriteCommPort")] HRESULT  WriteCommPort([in]LONG hCom, [in]BSTR lpBuff);
+	[helpstring("method WriteSMS")] HRESULT  WriteSMS([in]LONG hCom, [in]BSTR lpMNBuff, [in]BSTR lpMessageBuff);
+	[helpstring("method SetReadCommCommand")] HRESULT  SetReadCommCommand([in]LONG hCom, [in]LONG dwResponseType, [in]LONG hResWnd, [in]LONG dwResponse, [in]BSTR lpBuff, [in]LONG BuffSize);
+};
+
+
+[ version(1.0), uuid(2CB75893-8FB5-47DB-A4CB-E39B348CD261), helpstring("IoECommComponentLib 1.0 Type Library") ]
+library IoECommComponentLib
+{
+	importlib("stdole2.tlb");
+	importlib("olepro32.dll");
+
+	[
+		aggregatable,
+		version(1.0),
+		uuid(BEE3624A-5AF4-4982-9739-6C96254CD699),
+		helpstring("IoECommComponent Class")
+	] 
+	coclass IoECommComponent {
+		interface IIoECommComponent;
+	};
+
+}
+
